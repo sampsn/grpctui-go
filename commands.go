@@ -47,6 +47,7 @@ func kubePF(ctx context.Context, service string) error {
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 
+	// print
 	fmt.Printf("Starting port-forward to %s... (Press Ctrl+C to stop)\n", podName)
 
 	return cmd.Run()
