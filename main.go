@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"os/signal"
 )
@@ -33,7 +34,14 @@ func main() {
 		}
 	}
 
-	getMethods()
+	conn, stream, err := createReflectionClient()
+	if err != nil {
+		log.Fatalf("Failed to create reflection client connection: %v", err)
+		return
+	}
+	defer conn.Close()
+
+	getServices(stream)
 
 	sigChan := make(chan os.Signal, 1)
 	signal.Notify(sigChan, os.Interrupt)
